@@ -1,3 +1,10 @@
+# TeddyDD's private packages
+
+Packages on this branch was created for personal use. I don't guarantee they
+are up-to date or if they even works. They might not meet  criteria of Void
+packages, or I'm not sure how to correctly package them. Feel free to build /
+cherry-pick / adopt packages.
+
 ## The XBPS source packages collection
 
 This repository contains the XBPS source packages collection to build binary packages
