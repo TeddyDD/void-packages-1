@@ -1,22 +1,25 @@
-# Template file	for	'cfdg'
+# Template file for 'cfdg'
 pkgname=cfdg
-version=3.1
+version=3.3
 revision=1
 wrksrc=context-free-Version${version}
 build_style=gnu-makefile
 make_install_args="PREFIX=/usr DESTDIR=${DESTDIR}"
 hostmakedepends="flex bison"
 makedepends="icu-devel libpng-devel libatomic-devel"
-short_desc="Context	Free is	a program that generates images	from grammar"
+short_desc="Context Free is a program that generates images from grammar"
 maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
-license="GPL-2"
+license="GPL-2.0-or-later"
 homepage="https://github.com/MtnViewJohn/context-free"
 distfiles="https://github.com/MtnViewJohn/context-free/archive/Version${version}.tar.gz"
-checksum=85edfe0b72c86118b89f8c9f663ce3bbef08e96c6a2a085b8648a8fc52fbdcd1
+checksum=c34a7e49850420751c74a2d02ef921cb0beb6a9f7d895633a0ebc0ed5b241033
+
+do_build() {
+	make -j $(nproc)
+}
 
 post_install() {
 		rm -rf ${DESTDIR}/usr/local
 		vbin ${wrksrc}/cfdg
 		vman ${wrksrc}/cfdg.1
 }
-
