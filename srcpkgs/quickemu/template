@@ -1,6 +1,6 @@
 # Template file for 'quickemu'
 pkgname=quickemu
-version=2.3.2
+version=3.11
 revision=1
 depends="qemu spice-gtk jq procps-ng python3 cdrtools usbutils swtpm wget
  xdg-user-dirs xrandr zsync"
@@ -9,7 +9,7 @@ maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="MIT"
 homepage="https://github.com/wimpysworld/quickemu"
 distfiles="https://github.com/wimpysworld/quickemu/archive/${version}.tar.gz"
-checksum=b1319b5edf7432fbe45258c39997d17b87f714f439249c6057342c9afd37a50c
+checksum=17c53abbd71bbc50a9037bc006791888ac75f4d4d7501c0d5a98176a58b80c18
 
 do_install() {
 	vbin macrecovery
