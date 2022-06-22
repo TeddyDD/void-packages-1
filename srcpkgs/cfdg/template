@@ -11,7 +11,7 @@ short_desc="Context Free is a program that generates images from grammar"
 maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/MtnViewJohn/context-free"
-distfiles="https://github.com/MtnViewJohn/context-free/archive/Version${version}.tar.gz"
+distfiles="https://github.com/MtnViewJohn/context-free/archive/refs/tags/Version${version}.tar.gz"
 checksum=c34a7e49850420751c74a2d02ef921cb0beb6a9f7d895633a0ebc0ed5b241033
 
 do_build() {
