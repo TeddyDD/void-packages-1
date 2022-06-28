@@ -1,0 +1,20 @@
+# Template file for 'gamescope'
+pkgname=gamescope
+version=3.11.48
+revision=1
+_wlroots_commit=9f41627aa10a94d9427bc315fa3d363a61b94d7c
+_libliftoff_commit=378ccb4f84a2473fe73dbdc56fe35a0d2ee661cc
+build_style=meson
+configure_args="--force-fallback-for ''"
+depends="xorg-server-xwayland"
+hostmakedepends="pkg-config glslang xorg-server-xwayland"
+makedepends="stb libX11-devel libXdamage-devel libXcomposite-devel
+ libXrender-devel libXxf86vm-devel libXtst-devel libXres-devel libdrm-devel
+ vulkan-loader wayland-devel wayland-protocols libxkbcommon-devel libcap-devel
+ SDL2-devel wlroots-devel libseat-devel libliftoff-devel"
+short_desc="micro-compositor formerly known as steamcompmgr"
+maintainer=""
+license="BSD-2-Clause"
+homepage="https://github.com/Plagman/gamescope"
+distfiles="https://github.com/Plagman/gamescope/archive/refs/tags/${version}.tar.gz"
+checksum="394a453f59babe795b37bd8cc2ab0f20e30607e558b62ef983d3daa9d01a0cb0"
