@@ -1,0 +1,31 @@
+# Template file for 'kerf'
+pkgname=kerf
+version=1
+revision=1
+wrksrc=kerf1-master/src
+build_style=gnu-makefile
+hostmakedepends="clang"
+makedepends="zlib-devel libedit-devel tectonic"
+depends=""
+short_desc="Columnar tick database and time-series language"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="BSD-2-Clause"
+homepage="https://github.com/kevinlawler/kerf1"
+distfiles="https://github.com/kevinlawler/kerf1/archive/refs/heads/master.zip"
+checksum=2bbd53ffaa29b5b672989a8e87c28983a6c9e9ff77d3a7b58079aa195a0a2b2e
+
+do_build() {
+    vsed -i 's/-ltermcap/-lncurses/' Makefile
+    vsed -i 's/pdflatex --output-directory/--outdir/' Makefile
+    make PREFIX=/usr CC=clang
+    make docs
+}
+
+do_install() {
+    vbin kerf
+    for d in ../manual/*.pdf
+    do
+        vdoc "$d"
+    done
+    vlicense LICENSE
+}
