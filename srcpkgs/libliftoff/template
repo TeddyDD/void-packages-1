@@ -1,0 +1,37 @@
+# Template file for 'libliftoff'
+pkgname=libliftoff
+version=0.3.0
+revision=1
+#archs="i686 x86_64"
+#wrksrc=
+#create_wrksrc=yes
+build_style=meson
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config"
+makedepends="libdrm-devel"
+depends=""
+short_desc="Lightweight KMS plane library"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://gitlab.freedesktop.org/emersion/libliftoff"
+#changelog=""
+distfiles="https://gitlab.freedesktop.org/emersion/libliftoff/-/releases/v${version}/downloads/libliftoff-${version}.tar.gz"
+checksum=5e6afe189e47d3af3617fc82e3a21db18d756bd44c20b5a942a1d50b814159b4
+
+pre_build() {
+    vsed -i meson.build -e "/subdir('test')/d"
+}
+
+libliftoff-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}
