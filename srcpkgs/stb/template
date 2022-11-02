@@ -1,0 +1,33 @@
+# Template file for 'stb'
+pkgname=stb
+version=20210910
+revision=1
+_commit=af1a5bc352164740c1cc1354942b1c6b72eacb8a
+#archs="i686 x86_64"
+wrksrc=stb-${_commit}
+#create_wrksrc=yes
+# build_style=fetch
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends=""
+short_desc="Single-file public domain (or MIT licensed) libraries for C/C++"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="Public Domain"
+homepage="https://github.com/nothings/stb"
+#changelog=""
+distfiles="https://github.com/nothings/stb/archive/${_commit}.tar.gz"
+checksum=936b4e506b5f55db178207e528ecdf5a411f67431447767d06c9b7061765cd7e
+
+do_install() {
+	vmkdir usr/lib/pkgconfig
+	sed ${FILESDIR}/${pkgname}.pc \
+		-e "s;@VERSION@;${version};" \
+		> ${DESTDIR}/usr/lib/pkgconfig/${pkgname}.pc
+	install -Dm 644 *.{c,h} -t "${DESTDIR}"/usr/include/stb/
+	vlicense LICENSE
+}
