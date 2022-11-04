@@ -1,0 +1,25 @@
+# Template file for 'rocm-device-libs'
+pkgname=rocm-device-libs
+version=5.3.1
+revision=1
+archs="x86_64"
+wrksrc=ROCm-Device-Libs-rocm-${version}
+#create_wrksrc=yes
+build_style=cmake
+configure_args="-DCMAKE_C_COMPILER=/usr/lib/rocm-llvm/bin/clang
+-DLLVM_DIR=/usr/lib/rocm-llvm/lib/cmake/llvm
+-DCMAKE_INSTALL_PREFIX=/usr/lib/rocm"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="rocm-cmake rocm-llvm"
+makedepends=""
+depends=""
+short_desc="Radeon Open Compute device libraries"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="NCSAOSL"
+homepage="https://github.com/RadeonOpenCompute/ROCm-Device-Libs"
+#changelog=""
+distfiles="https://github.com/RadeonOpenCompute/ROCm-Device-Libs/archive/rocm-${version}.tar.gz"
+checksum=a6c05953fde09635d6920e86add3e1fdd32b29e6fbffd6cb9d3bcf33a12515d0
