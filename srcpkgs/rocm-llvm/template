@@ -1,0 +1,22 @@
+# Template file for 'rocm-llvm'
+pkgname=rocm-llvm
+version=5.3.1
+revision=1
+# archs="i686 x86_64"
+wrksrc=llvm-project-rocm-${version}
+build_wrksrc=llvm
+build_style=cmake
+configure_args="-DCMAKE_INSTALL_PREFIX:PATH=/usr/lib/rocm-llvm
+	-DLLVM_ENABLE_PROJECTS='llvm;clang;lld;compiler-rt' -DLLVM_TARGETS_TO_BUILD='AMDGPU;X86'
+	-DLLVM_BUILD_DOCS=NO -DLLVM_ENABLE_OCAMLDOC=OFF
+	-DLLVM_ENABLE_SPHINX=NO -DLLVM_ENABLE_DOXYGEN=OFF
+	-DLLVM_INSTALL_UTILS=ON -DLLVM_VERSION_SUFFIX=roc -DOCAMLFIND=NO
+	-DCMAKE_BUILD_TYPE=Release"
+hostmakedepends="python3"
+short_desc="Radeon Open Compute - LLVM toolchain (llvm, clang, lld)"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/RadeonOpenCompute/llvm-project"
+distfiles="https://github.com/RadeonOpenCompute/llvm-project/archive/rocm-${version}.tar.gz"
+checksum=805504e09c7872c8b4db07d3c366fdfdb00d1808747acdd548692a640d0c64a8
+python_version=3
