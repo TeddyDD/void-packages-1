@@ -1,0 +1,34 @@
+# Template file for 'rocm-comgr'
+pkgname=rocm-comgr
+version=5.3.1
+revision=1
+archs="x86_64"
+wrksrc="ROCm-CompilerSupport-rocm-${version}"
+build_wrksrc="lib/comgr"
+#wrksrc=
+#create_wrksrc=yes
+build_style=cmake
+configure_args="-DCMAKE_C_COMPILER=/usr/lib/rocm-llvm/bin/clang
+-DLLVM_DIR=/usr/lib/rocm-llvm/lib/cmake/llvm
+-DCMAKE_INSTALL_PREFIX=/usr/lib/rocm
+-DClang_DIR:PATH=/usr/lib/rocm-llvm/lib/cmake/clang
+-DLLD_DIR:PATH=/usr/lib/rocm-llvm/lib/cmake/lld"
+
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="rocm-cmake rocm-llvm rocm-device-libs"
+makedepends=""
+depends=""
+short_desc="Compiler support library for ROCm LLVM"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="NCSA"
+homepage="https://github.com/RadeonOpenCompute/ROCm-CompilerSupport"
+#changelog=""
+distfiles="https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/archive/rocm-${version}.tar.gz"
+checksum=6daf8df3ebe3d1bdd501e797237eef6d5e6122afff5701948b3cdc5b9645030f
+
+post_install() {
+    vlicense LICENSE.txt
+}
