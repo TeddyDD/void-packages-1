@@ -1,0 +1,15 @@
+# Template file for 'rocm-thunk-interface'
+pkgname=rocm-thunk-interface
+version=5.3.1
+revision=1
+archs="x86_64"
+wrksrc=ROCT-Thunk-Interface-rocm-$version
+build_style=cmake
+hostmakedepends="pkg-config"
+makedepends="libnuma-devel libdrm-devel"
+short_desc="User-mode API interfaces used to interact with the ROCk driver"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="NCSAOSL"
+homepage="https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface"
+distfiles="https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/rocm-${version}.tar.gz"
+checksum=a5f21094156d1267cbf2ccde0d0e2b8358e2e4a6ae0ec29396319f4b59eb8914
