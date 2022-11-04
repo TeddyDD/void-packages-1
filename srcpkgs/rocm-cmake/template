@@ -1,0 +1,20 @@
+# Template file for 'rocm-cmake'
+pkgname=rocm-cmake
+version=5.3.1
+revision=1
+archs="x86_64"
+wrksrc=rocm-cmake-rocm-${version}
+build_style=cmake
+short_desc="collection of CMake modules required for building ROCm project"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="MIT"
+homepage="https://github.com/RadeonOpenCompute/rocm-cmake"
+distfiles="https://github.com/RadeonOpenCompute/rocm-cmake/archive/rocm-${version}.tar.gz"
+checksum=b40edaf028b3c24848206eb72de47646affbb6e375e5fdb81ca044bd3fd74a94
+
+post_install() {
+    vlicense LICENSE
+    rm $DESTDIR/usr/share/doc/rocm-cmake/LICENSE
+    mkdir -p $DESTDIR/usr/lib/cmake/rocm/
+    mv $DESTDIR/usr/share/rocm/cmake/* $DESTDIR/usr/lib/cmake/rocm/
+}
