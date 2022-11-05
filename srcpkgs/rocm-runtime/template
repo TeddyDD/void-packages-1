@@ -1,0 +1,49 @@
+# Template file for 'rocm-runtime'
+pkgname=rocm-runtime
+version=5.3.1
+revision=1
+archs="x86_64"
+wrksrc=ROCR-Runtime-rocm-$version
+#create_wrksrc=yes
+build_style=cmake
+build_wrksrc="src"
+configure_args="-DIMAGE_SUPPORT=on
+-DCMAKE_C_COMPILER=/usr/lib/rocm-llvm/bin/clang
+-DCMAKE_CXX_COMPILER=/usr/lib/rocm-llvm/bin/clang
+-DCMAKE_C_FLAGS='-DNDEBUG'
+-DCMAKE_C_FLAGS='--rocm-path=/usr/lib/rocm/'
+-DCMAKE_C_FLAGS='--rocm-device-lib-path=/usr/lib/rocm/amdgcn/bitcode/'
+-DCMAKE_CXX_FLAGS='-DNDEBUG'
+-DCMAKE_CXX_FLAGS='--rocm-path=/usr/lib/rocm/'
+-DCMAKE_CXX_FLAGS='--rocm-device-lib-path=/usr/lib/rocm/amdgcn/bitcode/'
+-DHSA_CXX_FLAGS='--rocm-path=/usr/lib/rocm/'
+-DHSA_CXX_FLAGS='--rocm-device-lib-path=/usr/lib/rocm/amdgcn/bitcode/'
+-DCMAKE_PREFIX_PATH=/usr/lib/cmake/hsakmt;/usr/lib/rocm-llvm/lib/cmake/clang;/usr/lib/rocm/lib64/cmake/AMDDeviceLibs"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="pkg-config rocm-llvm xxd"
+makedepends="elfutils-devel rocm-thunk-interface rocm-device-libs libdrm-devel
+libnuma-devel"
+depends=""
+short_desc="Radeon Open Compute HSA runtime"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="NCSA"
+homepage="https://github.com/RadeonOpenCompute/ROCR-Runtime"
+#changelog=""
+distfiles="https://github.com/RadeonOpenCompute/ROCR-Runtime/archive/rocm-$version.tar.gz"
+checksum=8bbee493a006bf346beda434e8a4a157008751c19fe90baaa00dedde9d8c32a2
+
+_CXX_FLAGS="--rocm-device-lib-path=/usr/lib/rocm/lib64/cmake/AMDDeviceLibs/"
+
+pre_configure() {
+	vsed -e "s|\({CLANG_ARG_LIST}\)|\1 --hip-device-lib-path=/usr/lib/rocm/amdgcn/bitcode/|" \
+		-i image/blit_src/CMakeLists.txt \
+		-i core/runtime/trap_handler/CMakeLists.txt
+}
+
+# pre_configure() {
+#     echo "set(CMAKE_CXX_FLAGS \"\${CMAKE_CXX_FLAGS} $_CXX_FLAGS\")" >> CMakeLists.txt
+#     echo "set(HSA_CXX_FLAGS \"\${HSA_CXX_FLAGS} $_CXX_FLAGS\")" >> CMakeLists.txt
+# }
