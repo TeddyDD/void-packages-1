@@ -1,0 +1,36 @@
+# Template file for 'rocm-rocclr'
+pkgname=rocm-rocclr
+version=5.3.1
+revision=1
+#archs="i686 x86_64"
+wrksrc=ROCclr-rocm-$version
+#create_wrksrc=yes
+build_style=cmake
+configure_args="-DAMD_OPENCL_PATH=../ROCm-OpenCL-Runtime-rocm-5.3.1/
+-DCMAKE_PREFIX_PATH=/usr/lib/cmake/hsakmt;/usr/lib/rocm-llvm/lib/cmake/clang;/usr/lib/rocm/lib64/cmake/AMDDeviceLibs;/usr/lib/rocm/lib64/cmake/amd_comgr
+-DCMAKE_C_COMPILER=/usr/lib/rocm-llvm/bin/clang
+-DCMAKE_INSTALL_PREFIX=/usr"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="rocm-llvm"
+makedepends="rocm-comgr rocm-runtime libglvnd-devel"
+depends=""
+short_desc="Radeon Open Compute Common Language Runtime"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/ROCm-Developer-Tools/ROCclr"
+#changelog=""
+distfiles="https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime/archive/rocm-${version}.tar.gz>rocm.tar.gz
+https://github.com/ROCm-Developer-Tools/ROCclr/archive/rocm-$version.tar.gz>rocclr.tar.gz"
+checksum="8e0e6896ee1979d8e8a0a08ecc7610bbeb49be5a5fbc0a996b18bf808f4be2b8
+ b0cefa1897ab2d821de8e0580b6859738de1bc791eca930f05f3c154506fa401"
+
+do_install() {
+	vinstall ${wrksrc}/build/librocclr.a 644 usr/lib
+	for f in cmake/*
+	do
+    	vinstall $f 644 usr/lib/cmake/rocclr
+	done
+}

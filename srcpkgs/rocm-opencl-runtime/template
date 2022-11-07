@@ -1,0 +1,53 @@
+# Template file for 'rocm-opencl-runtime'
+pkgname=rocm-opencl-runtime
+version=5.3.1
+revision=1
+archs="x86_64"
+wrksrc=rocm-opencl-runtime-$version
+build_wrksrc="ROCm-OpenCL-Runtime-rocm-$version"
+create_wrksrc=yes
+build_style=cmake
+# _rocclr="../ROCclr-rocm-$version/"
+configure_args="-DCMAKE_PREFIX_PATH=/usr/lib/cmake/hsakmt;/usr/lib/rocm-llvm/lib/cmake/clang;/usr/lib/rocm/lib64/cmake/AMDDeviceLibs;$_rocclr/build;$_rocclr
+-DCMAKE_C_COMPILER=/usr/lib/rocm-llvm/bin/clang
+-DROCM_PATH=/usr/lib/rocm
+-DROCCLR_SRC_DIR=$_rocclr
+-DROCCLR_INCLUDE_DIR=$_rocclr
+-DCMAKE_BUILD_TYPE=Release
+"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends="rocm-runtime rocm-comgr rocm-rocclr rocm-llvm rocm-thunk-interface
+libnuma-devel libglvnd-devel"
+depends="rocm-runtime"
+short_desc="OpenCL implementation for AMD"
+maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+license="MIT"
+homepage="https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime"
+distfiles="https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime/archive/rocm-${version}.tar.gz>rocm.tar.gz
+https://github.com/ROCm-Developer-Tools/ROCclr/archive/rocm-$version.tar.gz>rocclr.tar.gz"
+checksum="8e0e6896ee1979d8e8a0a08ecc7610bbeb49be5a5fbc0a996b18bf808f4be2b8
+ b0cefa1897ab2d821de8e0580b6859738de1bc791eca930f05f3c154506fa401"
+
+# pre_configure() {
+# 	(
+# 		cd "$_rocclr"
+# 		mkdir -p build
+# 		cd build
+# 		cmake \
+# 			-GNinja \
+# 			-DAMD_OPENCL_PATH="$wrksrc/$build_wrksrc" \
+# 			-DCMAKE_PREFIX_PATH="/usr/lib/cmake/hsakmt;/usr/lib/rocm-llvm/lib/cmake/clang;/usr/lib/rocm/lib64/cmake/AMDDeviceLibs;/usr/lib/rocm/lib64/cmake/amd_comgr" \
+# 			-DCMAKE_C_COMPILER=/usr/lib/rocm-llvm/bin/clang \
+# 			-DCMAKE_INSTALL_PREFIX=/usr/lib/rocm \
+# 			-DCMAKE_INSTALL_PREFIX=/usr/lib/rocm/rocclr ..
+# 		ninja
+# 		mkdir -p $destdir/usr/lib/cmake/rocclr
+# 		cp ../cmake/*.cmake /usr/lib/cmake/rocclr
+# 	)
+# 	mkdir -p cmake
+# 	ln -sf "$_rocclr/cmake"/*.cmake cmake
+# }
