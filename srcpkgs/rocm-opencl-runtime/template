@@ -20,7 +20,7 @@ configure_args="-DCMAKE_PREFIX_PATH=/usr/lib/cmake/hsakmt;/usr/lib/rocm-llvm/lib
 #conf_files=""
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends=""
-makedepends="rocm-runtime rocm-comgr rocm-rocclr rocm-llvm rocm-thunk-interface
+makedepends="rocm-runtime rocm-comgr rocm-llvm rocm-thunk-interface
 libnuma-devel libglvnd-devel"
 depends="rocm-runtime"
 short_desc="OpenCL implementation for AMD"
@@ -31,6 +31,57 @@ distfiles="https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime/archive/rocm
 https://github.com/ROCm-Developer-Tools/ROCclr/archive/rocm-$version.tar.gz>rocclr.tar.gz"
 checksum="8e0e6896ee1979d8e8a0a08ecc7610bbeb49be5a5fbc0a996b18bf808f4be2b8
  b0cefa1897ab2d821de8e0580b6859738de1bc791eca930f05f3c154506fa401"
+
+do_configure() {
+	:
+}
+
+_CMAKE_PREFIX="/usr/lib/cmake/hsakmt;/usr/lib/rocm-llvm/lib/cmake/clang;/usr/lib/rocm/lib64/cmake/AMDDeviceLibs"
+
+# set -x
+
+do_build() {
+	_ROCclr_DIR="$wrksrc/ROCclr-rocm-$version"
+	_OPENCL_DIR="$wrksrc/ROCm-OpenCL-Runtime-rocm-$version"
+	pwd && ls
+	cd "$wrksrc/$build_wrksrc"
+	cmake \
+		-GNinja \
+		-Wno-dev \
+		-B build-rocclr \
+		-S "$_ROCclr_DIR" \
+		-DAMD_OPENCL_PATH="$_OPENCL_DIR" \
+		-DCMAKE_PREFIX_PATH="/usr/lib/rocm/lib64/cmake/" \
+        -DCMAKE_C_COMPILER=/usr/lib/rocm-llvm/bin/clang
+	(
+		cd build-rocclr && ninja ${makejobs}
+	)
+
+	cmake \
+		-GNinja \
+		-Wno-dev \
+		-B build \
+		-S "$_OPENCL_DIR" \
+		-DCMAKE_INSTALL_PREFIX=$DESTDIR/usr \
+		-DROCM_PATH=/usr/lib/rocm \
+		-DCMAKE_PREFIX_PATH="$_ROCclr_DIR;/usr/lib/rocm" \
+		-DAMD_OPENCL_PATH="$_OPENCL_DIR" \
+		-DCMAKE_INSTALL_LIBDIR=$DESTDIR/usr/lib \
+        -DCMAKE_C_COMPILER=/usr/lib/rocm-llvm/bin/clang
+	(
+		cd build
+		ninja ${makejobs}
+	)
+}
+
+do_install() {
+	(cd build && ninja install)
+	rm $DESTDIR/usr/lib64
+	rm -r $DESTDIR/usr/bin/clinfo
+	rm -r $DESTDIR/usr/opencl
+	rm -r $DESTDIR/usr/lib/libOpenCL*
+	vinstall config/amdocl64.icd 644 /etc/OpenCL/vendors/
+}
 
 # pre_configure() {
 # 	(
