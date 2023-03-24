@@ -1,6 +1,6 @@
 # Template file for 'decker'
 pkgname=decker
-version=1.11
+version=1.15
 revision=1
 build_style=gnu-makefile
 make_build_target="decker lilt docs"
@@ -11,7 +11,7 @@ maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="MIT"
 homepage="https://beyondloom.com/decker/"
 distfiles="https://github.com/JohnEarnest/Decker/archive/v${version}.tar.gz"
-checksum=6695c62ee0c19fbfb693b4965624ed5a4905183ace54d30c0c9b7096e6d59308
+checksum=f0e09e216d6c08f7aef394f732f4600012de545899e19de8f0d2e115c8253fe0
 
 do_install() {
 	vbin c/build/decker
