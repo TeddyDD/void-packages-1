@@ -1,0 +1,18 @@
+# Template file for 'pmenu'
+pkgname=pmenu
+version=3.1.1
+revision=1
+build_style=gnu-makefile
+makedepends="libX11-devel libXft-devel libXinerama-devel imlib2-devel"
+short_desc="Pie menu utility for X"
+maintainer="Daniel Lewan <daniel@teddydd.me>"
+license="MIT"
+homepage="https://github.com/phillbush/pmenu"
+changelog="https://raw.githubusercontent.com/phillbush/pmenu/master/CHANGELOG"
+distfiles="https://github.com/phillbush/pmenu/archive/v${version}.tar.gz"
+checksum=f1b70c28e9efd4acbb85358b1522f8c84a651f18f3b9d7158ccc09be038fbd57
+
+post_install() {
+    vsconf pmenu.sh
+    vlicense LICENSE
+}
