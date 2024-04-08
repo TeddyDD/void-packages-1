@@ -1,0 +1,26 @@
+# Template file for 'k3s-bin'
+pkgname=k3s-bin
+version=v1.29.3+k3s1
+revision=1
+archs="x86_64 x86_64-musl"
+build_style=fetch
+short_desc="Lightweight Kubernetes distro"
+maintainer="Daniel Lewan <daniel@teddydd.me>"
+license="Apache-2.0"
+homepage="https://k3s.io/"
+distfiles="https://github.com/k3s-io/k3s/releases/download/${version}/k3s"
+checksum=21b7542eeac71ffea09ee1efb9190bce7b77b8233ae13e12f3165c746c8559ee
+_completions="bash zsh"
+
+do_install() {
+	ls
+	chmod +x ./k3s
+	for shell in $_completions
+	do
+		./k3s completion "$shell" >"completion.$shell"
+		vcompletion "completion.$shell" "$shell"
+	done
+	vbin k3s
+	vsv k3s-server
+	vsv k3s-agent
+}
