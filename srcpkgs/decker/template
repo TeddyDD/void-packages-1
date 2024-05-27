@@ -1,17 +1,17 @@
 # Template file for 'decker'
 pkgname=decker
-version=1.41
+version=1.43
 revision=1
 build_style=gnu-makefile
 make_build_target="lilt decker"
-hostmakedepends="xxd MultiMarkdown"
+hostmakedepends="xxd"
 makedepends="SDL2-devel SDL2_image-devel"
 short_desc="Multimedia platform for creating and sharing interactive documents"
 maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="MIT"
 homepage="https://beyondloom.com/decker/"
 distfiles="https://github.com/JohnEarnest/Decker/archive/v${version}.tar.gz"
-checksum=8b0a3f86f96be1d70a7d0aeb0230a7225fb847dcb2d3ff1893405aa09826b4ee
+checksum=ba94013e0d28ff7b63a9821dd15575f35d6ab946771d674d55fc93dcb2f7b075
 
 pre_build() {
 	vsed -i 's/@//' Makefile
