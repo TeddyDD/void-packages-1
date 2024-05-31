@@ -1,6 +1,6 @@
 # Template file for 'opa'
 pkgname=opa
-version=0.48.0
+version=0.65.0
 revision=1
 build_style=go
 build_helper=qemu
@@ -14,7 +14,7 @@ license="Apache-2.0"
 homepage="https://www.openpolicyagent.org/"
 changelog="https://raw.githubusercontent.com/open-policy-agent/opa/main/CHANGELOG.md"
 distfiles="https://github.com/open-policy-agent/opa/archive/v${version}.tar.gz"
-checksum=73e499c9486784940e4d65d2fd1b23423c93fbf0dccd671289169ddec1141563
+checksum=996ff51dc0c86cd0e330e7017313d24b1f35436c9c569701c24952087d301122
 
 post_build() {
 	CGO_ENABLED=0 GOOS="" GOARCH="" go run -ldflags "$go_ldflags" ./build/generate-man man
