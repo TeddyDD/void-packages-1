@@ -1,6 +1,6 @@
 # Template file for 'decker'
 pkgname=decker
-version=1.50
+version=1.51
 revision=1
 build_style=gnu-makefile
 make_build_target="lilt decker"
@@ -11,7 +11,7 @@ maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="MIT"
 homepage="https://beyondloom.com/decker/"
 distfiles="https://github.com/JohnEarnest/Decker/archive/v${version}.tar.gz"
-checksum=8511c20d8ff41c5ab45c3565e9d63cf3de1ebe3fbe8bde71e7e25370c3d4b113
+checksum=95b83bb9862992ac041d9b1e5f6f11a24f0bf2c53219f657381b26c781f00b3c
 
 pre_build() {
 	vsed -i 's/@//' Makefile
