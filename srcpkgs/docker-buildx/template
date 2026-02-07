@@ -1,6 +1,6 @@
 # Template file for 'docker-buildx'
 pkgname=docker-buildx
-version=0.30.1
+version=0.31.1
 revision=1
 build_style=go
 go_import_path="github.com/docker/buildx"
@@ -14,7 +14,7 @@ maintainer="Daniel Lewan <daniel@teddydd.me>"
 license="Apache-2.0"
 homepage="https://docs.docker.com/buildx/working-with-buildx/"
 distfiles="https://github.com/docker/buildx/archive/refs/tags/v${version}.tar.gz"
-checksum=d16adbb11be83edfff646d8a980e7bef1768b57120e5af35f37f70f97d0cbaa3
+checksum=2f2069554305c9659dd4a2b4eb10c7aeab97e52e89cfeeda07f0c0c43d19ee80
 
 post_install() {
 	vmkdir usr/libexec/docker/cli-plugins
