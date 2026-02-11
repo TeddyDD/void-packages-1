@@ -1,6 +1,6 @@
 # Template file for 'cfdg'
 pkgname=cfdg
-version=3.4.1
+version=3.4.2
 revision=1
 wrksrc=context-free-Version${version}
 build_style=gnu-makefile
@@ -12,7 +12,7 @@ maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/MtnViewJohn/context-free"
 distfiles="https://github.com/MtnViewJohn/context-free/archive/refs/tags/Version${version}.tar.gz"
-checksum=c9433fac623b4f7f7875636f7cefd6beca1e4314ef0717b490440c1b7cd40765
+checksum=12cc7e84bd9290743f4492f467de679617b0a272158a91b0c20e8905cda03c4c
 
 do_build() {
 	make -j $(nproc)
