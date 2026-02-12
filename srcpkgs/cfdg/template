@@ -2,24 +2,35 @@
 pkgname=cfdg
 version=3.4.2
 revision=1
-wrksrc=context-free-Version${version}
+_version_suffix="_2"
+# wrksrc=context-free-Version${version}
 build_style=gnu-makefile
 make_install_args="PREFIX=/usr DESTDIR=${DESTDIR}"
 hostmakedepends="flex bison"
-makedepends="icu-devel libpng-devel libatomic-devel"
+makedepends="libicu78-devel libpng-devel libatomic-devel ffmpeg-devel x264-devel"
 short_desc="Context Free is a program that generates images from grammar"
 maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
+changelog="https://raw.githubusercontent.com/MtnViewJohn/context-free/refs/heads/master/ChangeLog"
 license="GPL-2.0-or-later"
 homepage="https://github.com/MtnViewJohn/context-free"
-distfiles="https://github.com/MtnViewJohn/context-free/archive/refs/tags/Version${version}.tar.gz"
-checksum=12cc7e84bd9290743f4492f467de679617b0a272158a91b0c20e8905cda03c4c
+distfiles="https://github.com/MtnViewJohn/context-free/archive/refs/tags/Version${version}${_version_suffix}.tar.gz"
+checksum=a3e294a31afa596a0bbbe271b88d5ca19f8b7c5e54f6a48256878fa797b8dc77
 
 do_build() {
-	make -j $(nproc)
+	rm -rf src-ffmpeg/include/*
+	make -j $(nproc) CFDG_FFMPEG=1 cfdg
+	# CFDG_FFMPEG=1 make INC_DIRS="src-common src-unix objs src-common/agg-extras src-agg src-agg/agg2 /usr/include" \
+	#      LIB_DIRS="/usr/lib" \
+	#      -j $(nproc)
+
 }
 
-post_install() {
+do_check() {
+	./runtests.sh
+}
+
+do_install() {
 		rm -rf ${DESTDIR}/usr/local
-		vbin ${wrksrc}/cfdg
-		vman ${wrksrc}/cfdg.1
+		vbin cfdg
+		vman cfdg.1
 }
