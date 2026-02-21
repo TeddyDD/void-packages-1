@@ -1,6 +1,6 @@
 # Template file for 'quickemu'
 pkgname=quickemu
-version=4.9.2
+version=4.9.9
 revision=1
 depends="qemu spice-gtk jq procps-ng python3 cdrtools usbutils swtpm wget
  xdg-user-dirs xrandr zsync socat"
@@ -9,14 +9,13 @@ maintainer="Daniel Lewan <vision360.daniel@gmail.com>"
 license="MIT"
 homepage="https://github.com/wimpysworld/quickemu"
 distfiles="https://github.com/wimpysworld/quickemu/archive/${version}.tar.gz"
-checksum=fa5e2e5112deb836c0ab6035ab0aaabd1465b13e945d4a49dc975b94f1b01233
+checksum=ef5c5015e91c4fef6797c4961c400d18e1ae8191a8d1eae6e3512823dd2ff2a8
 
 do_install() {
-	vbin macrecovery
 	vbin quickemu
 	vbin quickget
 	vlicense LICENSE
 	vman docs/quickemu.1
-	vman docs/quickemu_conf.1
+	vman docs/quickemu_conf.5
 	vman docs/quickget.1
 }
